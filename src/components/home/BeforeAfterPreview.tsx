@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { beforeAfterCases } from "@/data/before-after";
 import AnimateOnScroll from "@/components/ui/AnimateOnScroll";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import Disclaimer from "@/components/ui/Disclaimer";
+import BeforeAfterSlider from "@/components/ui/BeforeAfterSlider";
 
 export default function BeforeAfterPreview() {
   const previewCases = beforeAfterCases.slice(0, 2);
@@ -13,7 +13,7 @@ export default function BeforeAfterPreview() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Résultats Réels"
-          subtitle="Découvrez ce que le blanchiment professionnel peut faire"
+          subtitle="Glissez pour découvrir la transformation"
           badge="Avant & Après"
         />
 
@@ -21,38 +21,13 @@ export default function BeforeAfterPreview() {
           {previewCases.map((caseItem, index) => (
             <AnimateOnScroll key={caseItem.id} delay={index * 0.2}>
               <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition-shadow hover:shadow-md">
-                {/* Side-by-side images */}
-                <div className="grid grid-cols-2">
-                  <div className="relative">
-                    <div className="relative aspect-[4/3] bg-muted/10">
-                      <Image
-                        src={caseItem.beforeImage}
-                        alt={caseItem.beforeAlt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
-                    </div>
-                    <span className="absolute bottom-2 left-2 rounded-full bg-foreground/70 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                      Avant
-                    </span>
-                  </div>
-
-                  <div className="relative">
-                    <div className="relative aspect-[4/3] bg-muted/10">
-                      <Image
-                        src={caseItem.afterImage}
-                        alt={caseItem.afterAlt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
-                    </div>
-                    <span className="absolute bottom-2 right-2 rounded-full bg-primary/80 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                      Après
-                    </span>
-                  </div>
-                </div>
+                {/* Slider */}
+                <BeforeAfterSlider
+                  beforeImage={caseItem.beforeImage}
+                  afterImage={caseItem.afterImage}
+                  beforeAlt={caseItem.beforeAlt}
+                  afterAlt={caseItem.afterAlt}
+                />
 
                 {/* Case details */}
                 <div className="flex items-center justify-between p-5">
