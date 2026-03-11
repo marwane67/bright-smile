@@ -1,8 +1,10 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { MapPin, Star, Users, Clock, Sparkles, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { MapPin, Star, Users, Sparkles, ChevronRight, Timer } from "lucide-react";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -51,6 +53,124 @@ const floatCardRightVariants: Variants = {
   },
 };
 
+// Custom Icon matching the reference exactly
+const CustomSparklesIcon = ({ className, strokeWidth = 2 }: { className?: string, strokeWidth?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Main four-point spark */}
+    <path d="M12 2v5" />
+    <path d="M12 17v5" />
+    <path d="M17 12h5" />
+    <path d="M2 12h5" />
+    <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5Z" />
+    <path d="M18 6l-1 1" />
+  </svg>
+);
+
+// Premium Detailed Tooth Icon matching reference
+const CustomToothIcon = ({ className, strokeWidth = 1.5 }: { className?: string, strokeWidth?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth * 2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M32 16 c-4-10-18-10-22 0 c-2 6 2 18 5 26 c3 8 7 10 9 2 c1-4 3-4 4 0 c2 8 6 6 9-2 c3-8 7-20 5-26 c-4-10-18-10-22 0z" />
+    <path d="M32 16 c5 4 12 5 18 2" />
+  </svg>
+);
+
+// Premium Detailed Dentist Chair Icon matching reference
+const CustomDentistChairIcon = ({ className, strokeWidth = 1.5 }: { className?: string, strokeWidth?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth * 1.5}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    {/* Floor */}
+    <path d="M4 60h10 M20 60h28 M54 60h6" />
+    
+    {/* Pedestal Base */}
+    <path d="M22 60c0-4 2-6 6-6h8c4 0 6 2 6 6" />
+    <path d="M30 46v8 M34 46v8" />
+    <path d="M26 44c0 3 2 4 6 4s6-1 6-4" />
+
+    {/* Lamp pole */}
+    <path d="M38 42V12c0-4-2-6-5-6-2 0-4 1-5 2" />
+
+    {/* Lamp head */}
+    <path d="M28 8c-1 3-2 6-6 8-2-2-3-5 0-8 2-1 4-1 6 0z" />
+    {/* Rays */}
+    <path d="M18 16l-3 2 M22 20l-2 3 M15 20l-3-1" />
+
+    {/* Instrument Tray */}
+    <path d="M38 22h8" />
+    <rect x="46" y="18" width="14" height="8" rx="1.5" />
+    <path d="M49 26v4 M53 26v6 M57 26v4" />
+
+    {/* Chair main outline (with dash array for modern icon effect) */}
+    <path 
+      d="M12 26l10 8c2 2 5 3 9 3h10c3 0 5 1 7 4l7 10c1 2 4 3 6 1 2-2 1-5-1-7l-7-10c-3-4-7-6-12-6h-10c-2 0-3-1-5-2l-10-8c-1-1-3-2-5-1-1 1-1 3 1 5z" 
+      strokeDasharray="24 6" 
+    />
+
+    {/* Headrest */}
+    <path d="M6 16c-2-2-5-1-6 1-2 2-1 5 2 7 2 2 5 1 6-1 2-2 1-5-2-7z" strokeDasharray="16 6" />
+  </svg>
+);
+
+interface ModernCardProps {
+  icon: React.ElementType;
+  title: string;
+  delay?: number;
+  className?: string;
+  iconBgColor?: string;
+  iconColor?: string;
+}
+
+const ModernCard = ({
+  icon: Icon,
+  title,
+  delay = 0,
+  className = "",
+  iconBgColor = "bg-primary/10",
+  iconColor = "text-primary",
+}: ModernCardProps) => {
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut", delay }}
+      className={`absolute z-20 rounded-2xl bg-white/95 backdrop-blur-md px-4 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.06)] ring-1 ring-black/5 ${className}`}
+    >
+      <div className="flex items-center gap-3">
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${iconBgColor}`}>
+          <Icon className={`h-5 w-5 ${iconColor}`} strokeWidth={1.5} />
+        </div>
+        <p className="text-sm font-bold tracking-tight text-[#1a1a2e]">{title}</p>
+      </div>
+    </motion.div>
+  );
+};
+
 export default function Hero() {
   return (
     <section className="relative min-h-[calc(100vh-73px)] overflow-hidden bg-gradient-to-br from-[#f0fafa] via-white to-[#f5f9ff]">
@@ -58,8 +178,6 @@ export default function Hero() {
       <div className="absolute -right-32 -top-32 h-[500px] w-[500px] rounded-full bg-primary/5" />
       <div className="absolute -bottom-20 -left-20 h-[300px] w-[300px] rounded-full bg-primary/5" />
       <div className="absolute right-1/4 top-1/3 h-3 w-3 rounded-full bg-primary/30" />
-      <div className="absolute left-[15%] top-[20%] h-2 w-2 rounded-full bg-accent/40" />
-      <div className="absolute bottom-1/4 right-[12%] h-2 w-2 rounded-full bg-primary/20" />
 
       {/* Subtle grid pattern */}
       <div
@@ -174,72 +292,51 @@ export default function Hero() {
               {/* Background shape behind image */}
               <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
 
-              {/* Image placeholder */}
+              {/* Image Box */}
               <div className="relative h-[400px] w-full overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-primary/10 via-[#e8f5f4] to-[#f0f9ff] shadow-xl sm:h-[480px] sm:w-[400px]">
-                {/* Decorative smile icon */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white/80 shadow-lg">
-                    <Sparkles className="h-12 w-12 text-primary" />
-                  </div>
-                  <p className="text-sm font-medium text-primary/60">
-                    Bright Smile
-                  </p>
-                </div>
+                <Image
+                  src="/images/hero-whitening.jpg"
+                  alt="Soin Blanchiment Dentaire Bright Smile"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-[1.5rem]"
+                  priority
+                />
 
                 {/* Decorative gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-[1.5rem]" />
               </div>
 
-              {/* Floating card: left */}
+              {/* Floating badge: top-left (8 teintes +) */}
               <motion.div
                 variants={floatCardVariants}
                 initial="hidden"
                 animate="visible"
-                className="absolute -left-6 bottom-16 z-20 rounded-xl border border-border/50 bg-white px-4 py-3 shadow-lg sm:-left-12"
+                className="absolute -left-6 top-16 z-30 flex items-center gap-2.5 rounded-full bg-white/95 backdrop-blur-md px-5 py-2.5 shadow-[0_4px_15px_rgb(0,0,0,0.05)] ring-1 ring-black/5 sm:-left-12"
               >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                    <Users className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold text-foreground">500+</p>
-                    <p className="text-xs text-muted">Clients satisfaits</p>
-                  </div>
-                </div>
+                <CustomToothIcon className="h-4 w-4 text-accent" strokeWidth={1.5} />
+                <span className="text-sm font-bold text-[#1a1a2e]">8 teintes +</span>
               </motion.div>
 
-              {/* Floating card: right */}
-              <motion.div
-                variants={floatCardRightVariants}
-                initial="hidden"
-                animate="visible"
-                className="absolute -right-4 top-16 z-20 rounded-xl border border-border/50 bg-white px-4 py-3 shadow-lg sm:-right-10"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10">
-                    <Clock className="h-5 w-5 text-accent" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold text-foreground">1 Séance</p>
-                    <p className="text-xs text-muted">Résultats immédiats</p>
-                  </div>
-                </div>
-              </motion.div>
+              {/* Modern card: right (1 Séance) */}
+              <ModernCard
+                icon={CustomDentistChairIcon}
+                title="1 Séance"
+                delay={1.0}
+                className="-right-6 top-32 sm:-right-16 px-6 py-4"
+                iconBgColor="bg-[#fff8ec]"
+                iconColor="text-accent"
+              />
 
-              {/* Floating badge: top-left */}
-              <motion.div
-                variants={floatCardVariants}
-                initial="hidden"
-                animate="visible"
-                className="absolute -left-2 top-8 z-20 rounded-full border border-border/50 bg-white px-3 py-1.5 shadow-md sm:-left-6"
-              >
-                <div className="flex items-center gap-1.5">
-                  <Sparkles className="h-3.5 w-3.5 text-accent" />
-                  <span className="text-xs font-semibold text-foreground">
-                    8 teintes +
-                  </span>
-                </div>
-              </motion.div>
+              {/* Modern card: bottom-left (60 minutes) */}
+              <ModernCard
+                icon={Timer}
+                title="60 minutes"
+                delay={0.8}
+                className="-left-6 bottom-24 sm:-left-16"
+                iconBgColor="bg-[#eefcf8]"
+                iconColor="text-primary"
+              />
             </motion.div>
           </div>
         </div>
@@ -251,7 +348,7 @@ export default function Hero() {
           {[
             { value: "500+", label: "Clients Traités", icon: Users },
             { value: "8", label: "Teintes Plus Clair", icon: Sparkles },
-            { value: "45min", label: "Par Séance", icon: Clock },
+            { value: "60min", label: "Par Séance", icon: Timer },
             { value: "4.9/5", label: "Satisfaction", icon: Star },
           ].map((stat) => (
             <div

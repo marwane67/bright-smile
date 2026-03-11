@@ -2,7 +2,6 @@ import { beforeAfterCases } from "@/data/before-after";
 import AnimateOnScroll from "@/components/ui/AnimateOnScroll";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
-import Disclaimer from "@/components/ui/Disclaimer";
 import BeforeAfterSlider from "@/components/ui/BeforeAfterSlider";
 
 export default function BeforeAfterPreview() {
@@ -53,10 +52,6 @@ export default function BeforeAfterPreview() {
           </Button>
         </AnimateOnScroll>
 
-        {/* Disclaimer */}
-        <AnimateOnScroll delay={0.5} className="mt-10">
-          <Disclaimer text="Les résultats peuvent varier d'une personne à l'autre. Photos publiées avec le consentement des clients." />
-        </AnimateOnScroll>
       </div>
     </section>
   );

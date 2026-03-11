@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/layout/Header";
@@ -7,11 +6,6 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import { siteConfig } from "@/data/site";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.example.com";
 
@@ -54,7 +48,7 @@ export default function RootLayout({
       <head>
         <SchemaOrg />
       </head>
-      <body className={`${inter.variable} antialiased`}>
+      <body className="antialiased">
         <Header />
         <main className="min-h-screen pt-[73px]">{children}</main>
         <Footer />

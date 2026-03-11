@@ -1,6 +1,6 @@
 import { pageMetadata } from "@/data/metadata";
 import Hero from "@/components/home/Hero";
-import TrustProofs from "@/components/home/TrustProofs";
+import Advantages from "@/components/home/Advantages";
 import ServicesSummary from "@/components/home/ServicesSummary";
 import ThreeStepProcess from "@/components/home/ThreeStepProcess";
 import BeforeAfterPreview from "@/components/home/BeforeAfterPreview";
@@ -14,27 +14,48 @@ export const metadata = pageMetadata.home;
 export default function Home() {
   return (
     <>
+      {/* 1. Attention & Clarity (Hero) */}
       <Hero />
-      <TrustProofs />
-      <section id="services">
-        <ServicesSummary />
+      
+      {/* 2. Cognitive Load Reduction & Fear Alleviation (Advantages) */}
+      <section id="advantages">
+        <Advantages />
       </section>
+
+      {/* 3. Picture Superiority Effect (Before / After Contrast) */}
+      <section id="before-after">
+        <BeforeAfterPreview />
+      </section>
+
+      {/* 4. Rule of 3 (Simple Process to eliminate effort bias) */}
       <section id="how-it-works">
         <ThreeStepProcess />
       </section>
-      <section id="results">
-        <BeforeAfterPreview />
+
+      {/* 5. Logical Justification (Services / Pricing context) */}
+      <section id="services">
+        <ServicesSummary />
       </section>
+
+      {/* 6. Mirror Neurons & Social Proof (Testimonials) */}
       <section id="testimonials">
         <TestimonialsCarousel />
       </section>
+
+      {/* 7. Objection Handling (FAQ) */}
       <section id="faq">
         <HomeFAQ />
       </section>
+
+      {/* 8. Reassurance & Practicality (Location) */}
       <section id="location">
         <LocationSection />
       </section>
-      <FinalCTA />
+
+      {/* 9. Final Call to Action (Urgency/Scarcity) */}
+      <section id="contact">
+        <FinalCTA />
+      </section>
     </>
   );
 }

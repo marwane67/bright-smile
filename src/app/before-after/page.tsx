@@ -5,7 +5,6 @@ import Image from "next/image";
 import { beforeAfterCases } from "@/data/before-after";
 import SectionHeading from "@/components/ui/SectionHeading";
 import AnimateOnScroll from "@/components/ui/AnimateOnScroll";
-import Disclaimer from "@/components/ui/Disclaimer";
 import Lightbox from "@/components/before-after/Lightbox";
 import CTABlock from "@/components/shared/CTABlock";
 
@@ -78,9 +77,6 @@ export default function BeforeAfterPage() {
             ))}
           </div>
 
-          <AnimateOnScroll delay={0.5} className="mt-10">
-            <Disclaimer text="Les résultats peuvent varier d'une personne à l'autre. Photos publiées avec le consentement des clients." />
-          </AnimateOnScroll>
         </div>
       </section>
 
